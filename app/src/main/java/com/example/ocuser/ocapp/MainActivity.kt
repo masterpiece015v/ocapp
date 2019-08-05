@@ -4,10 +4,11 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.View
 import android.widget.Button
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 data class Note(val oto : String , val delay : Long )
 
@@ -30,20 +31,57 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //初期化
         init()
-
-        //鍵盤にイベントを割り当てる
-        //ドのボタンをクリックしたときのプログラム
-
         //楽譜を作る
         makeScore()
     }
 
+    //ドの鍵盤
+    fun btnDo(){
+        sound("ド")
+    }
+    //レの鍵盤
+    fun btnRe(){
+
+    }
+    //ミの鍵盤
+    fun btnMi(){
+
+    }
+    //ファの鍵盤
+    fun btnFa(){
+
+    }
+    //ソの鍵盤
+    fun btnSo(){
+
+    }
+    //ラの鍵盤
+    fun btnRa(){
+    }
+    //シの鍵盤
+    fun btnSi(){
+
+    }
     //楽譜を作る
     fun makeScore(){
-        setScore("ド" , 200 )
+        setScore("ド" , 400 )
+
     }
 
-
+    //問題を再生するイベントプログラム
+    fun btnPlayClick(){
+        GlobalScope.launch( Dispatchers.Main ){
+            scoreList.forEach{
+                async( Dispatchers.Default ){
+                    if( it.oto != "休") {
+                        sound(it.oto)
+                    }
+                    Thread.sleep( it.delay )
+                    return@async
+                }.await()
+            }
+        }
+    }
     //初期化処理
     fun init(){
         //音源の準備
@@ -59,16 +97,38 @@ class MainActivity : AppCompatActivity() {
 
         //鍵盤にイベントを割り当てる
         btn_do = findViewById(R.id.btn_do)
+        btn_do.setOnClickListener{
+            btnDo()
+        }
         btn_re = findViewById(R.id.btn_re)
+        btn_re.setOnClickListener{
+            btnRe()
+        }
         btn_mi=findViewById(R.id.btn_mi)
+        btn_mi.setOnClickListener{
+            btnMi()
+        }
         btn_fa=findViewById(R.id.btn_fa)
+        btn_fa.setOnClickListener{
+            btnFa()
+        }
         btn_so=findViewById(R.id.btn_so)
+        btn_so.setOnClickListener{
+            btnSo()
+        }
         btn_ra=findViewById(R.id.btn_ra)
+        btn_ra.setOnClickListener {
+            btnRa()
+        }
         btn_si=findViewById(R.id.btn_si)
-
+        btn_si.setOnClickListener{
+            btnSi()
+        }
         //楽譜を再生ボタン
         btn_play = findViewById(R.id.btn_play)
-        btn_play.setOnClickListener(Btn_Play_ClickListener())
+        btn_play.setOnClickListener{
+            btnPlayClick()
+        }
         //クリアボタン
         //btn_clear = findViewById<Button>(R.id.btn_clear)
         //btn_clear.setOnClickListener(Btn_AnswerClear_ClickListener())
@@ -82,35 +142,6 @@ class MainActivity : AppCompatActivity() {
     //音を出す
     fun sound( oto :String ){
         soundPool.play( scaleMap[oto]!!,1.0f,1.0f,0,0,1.0f)
-    }
-    //回答をクリアするイベントプログラム
-    inner class Btn_AnswerClear_ClickListener : View.OnClickListener{
-        override fun onClick( v : View? ){
-
-        }
-    }
-    //問題を再生するイベントプログラム
-    inner class Btn_Play_ClickListener : View.OnClickListener{
-        override fun onClick( v :View?){
-            val handler = Handler(Looper.getMainLooper())
-            Thread{
-                handler.post{
-                    scoreList.forEach {
-                        if( it.oto != "休" ) {
-                            sound(it.oto)
-                        }
-                        Thread.sleep(it.delay)
-                    }
-                }
-            }.start()
-        }
-    }
-
-    //鍵盤のイベントプログラム
-    inner class Btn_key_ClickListener(val oto : String) : View.OnClickListener{
-        override fun onClick(v: View?) {
-            sound( oto )
-        }
     }
 
 
