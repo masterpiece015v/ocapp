@@ -16,13 +16,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var soundPool : SoundPool
     val scoreList = mutableListOf<Note>()        //楽譜
     val scaleMap = mutableMapOf<String,Int>()    //音階と音源の対応
-    lateinit var btn_do : Button                //ドの鍵盤
-    lateinit var btn_re : Button                //レの鍵盤
-    lateinit var btn_mi : Button                //ミの鍵盤
-    lateinit var btn_fa : Button                //ファの鍵盤
-    lateinit var btn_so : Button                //ソの鍵盤
-    lateinit var btn_ra : Button                //ラの鍵盤
-    lateinit var btn_si : Button                //シの鍵盤
+    lateinit var btn_do1 : Button                //ドの鍵盤
+    lateinit var btn_re1 : Button                //レの鍵盤
+    lateinit var btn_mi1 : Button                //ミの鍵盤
+    lateinit var btn_fa1 : Button                //ファの鍵盤
+    lateinit var btn_so1 : Button                //ソの鍵盤
+    lateinit var btn_ra1 : Button                //ラの鍵盤
+    lateinit var btn_si1 : Button                //シの鍵盤
+    lateinit var btn_do2 : Button               //高いドの鍵盤
     lateinit var btn_play :Button               //再生のボタン
     lateinit var btn_clear : Button             //クリアのボタン
 
@@ -31,55 +32,60 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //初期化
         init()
-        //楽譜を作る
-        makeScore()
     }
 
     //ドの鍵盤
-    fun btnDo(){
-        sound("ド")
+    fun btnDo1(){
+        sound("ド1")
     }
     //レの鍵盤
-    fun btnRe(){
+    fun btnRe1(){
 
     }
     //ミの鍵盤
-    fun btnMi(){
+    fun btnMi1(){
 
     }
     //ファの鍵盤
-    fun btnFa(){
+    fun btnFa1(){
 
     }
     //ソの鍵盤
-    fun btnSo(){
+    fun btnSo1(){
 
     }
     //ラの鍵盤
-    fun btnRa(){
+    fun btnRa1(){
     }
     //シの鍵盤
-    fun btnSi(){
+    fun btnSi1(){
 
     }
-    //楽譜を作る
-    fun makeScore(){
-        setScore("ド" , 400 )
+    //ドの鍵盤
+    fun btnDo2(){
 
     }
-
-    //問題を再生するイベントプログラム
+    //再生ボタンをクリックした時の処理
     fun btnPlayClick(){
+        setScore( "ド1" , 800 )
+        setScore( "レ1" , 400 )
+
+    }
+    //scoreListを再生する非同期プログラム
+    fun scorePlay(){
+
         GlobalScope.launch( Dispatchers.Main ){
-            scoreList.forEach{
-                async( Dispatchers.Default ){
+            btn_play.isEnabled = false
+            async( Dispatchers.Default ){
+                scoreList.forEach{
                     if( it.oto != "休") {
                         sound(it.oto)
                     }
                     Thread.sleep( it.delay )
-                    return@async
-                }.await()
-            }
+                }
+                return@async
+            }.await()
+            btn_play.isEnabled = true
         }
     }
     //初期化処理
@@ -87,47 +93,53 @@ class MainActivity : AppCompatActivity() {
         //音源の準備
         val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(2).build()
-        scaleMap.put("ド",soundPool.load(this,R.raw.s_do,1))
-        scaleMap.put("レ",soundPool.load(this,R.raw.s_re,1))
-        scaleMap.put("ミ",soundPool.load(this,R.raw.s_mi,1))
-        scaleMap.put("ファ",soundPool.load(this,R.raw.s_fa,1))
-        scaleMap.put("ソ",soundPool.load(this,R.raw.s_so,1))
-        scaleMap.put("ラ",soundPool.load(this,R.raw.s_ra,1))
-        scaleMap.put("シ",soundPool.load(this,R.raw.s_si,1) )
+        scaleMap.put("ド1",soundPool.load(this,R.raw.s_do,1))
+        scaleMap.put("レ1",soundPool.load(this,R.raw.s_re,1))
+        scaleMap.put("ミ1",soundPool.load(this,R.raw.s_mi,1))
+        scaleMap.put("ファ1",soundPool.load(this,R.raw.s_fa,1))
+        scaleMap.put("ソ1",soundPool.load(this,R.raw.s_so,1))
+        scaleMap.put("ラ1",soundPool.load(this,R.raw.s_ra,1))
+        scaleMap.put("シ1",soundPool.load(this,R.raw.s_si,1) )
+        scaleMap.put("ド2",soundPool.load(this,R.raw.s_do2,1))
 
         //鍵盤にイベントを割り当てる
-        btn_do = findViewById(R.id.btn_do)
-        btn_do.setOnClickListener{
-            btnDo()
+        btn_do1 = findViewById(R.id.btn_do1)
+        btn_do1.setOnClickListener{
+            btnDo1()
         }
-        btn_re = findViewById(R.id.btn_re)
-        btn_re.setOnClickListener{
-            btnRe()
+        btn_re1 = findViewById(R.id.btn_re1)
+        btn_re1.setOnClickListener{
+            btnRe1()
         }
-        btn_mi=findViewById(R.id.btn_mi)
-        btn_mi.setOnClickListener{
-            btnMi()
+        btn_mi1=findViewById(R.id.btn_mi1)
+        btn_mi1.setOnClickListener{
+            btnMi1()
         }
-        btn_fa=findViewById(R.id.btn_fa)
-        btn_fa.setOnClickListener{
-            btnFa()
+        btn_fa1=findViewById(R.id.btn_fa1)
+        btn_fa1.setOnClickListener{
+            btnFa1()
         }
-        btn_so=findViewById(R.id.btn_so)
-        btn_so.setOnClickListener{
-            btnSo()
+        btn_so1=findViewById(R.id.btn_so1)
+        btn_so1.setOnClickListener{
+            btnSo1()
         }
-        btn_ra=findViewById(R.id.btn_ra)
-        btn_ra.setOnClickListener {
-            btnRa()
+        btn_ra1=findViewById(R.id.btn_ra1)
+        btn_ra1.setOnClickListener {
+            btnRa1()
         }
-        btn_si=findViewById(R.id.btn_si)
-        btn_si.setOnClickListener{
-            btnSi()
+        btn_si1=findViewById(R.id.btn_si1)
+        btn_si1.setOnClickListener{
+            btnSi1()
+        }
+        btn_do2= findViewById( R.id.btn_do2)
+        btn_do2.setOnClickListener{
+            btnDo2()
         }
         //楽譜を再生ボタン
         btn_play = findViewById(R.id.btn_play)
         btn_play.setOnClickListener{
             btnPlayClick()
+            scorePlay()
         }
         //クリアボタン
         //btn_clear = findViewById<Button>(R.id.btn_clear)
@@ -143,6 +155,4 @@ class MainActivity : AppCompatActivity() {
     fun sound( oto :String ){
         soundPool.play( scaleMap[oto]!!,1.0f,1.0f,0,0,1.0f)
     }
-
-
 }

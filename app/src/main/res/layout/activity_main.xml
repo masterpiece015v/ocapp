@@ -7,8 +7,8 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_do"
-        android:layout_width="48dp"
+        android:id="@+id/btn_do1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
@@ -18,14 +18,25 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_re"
-        android:layout_width="48dp"
+        android:id="@+id/btn_do2"
+        android:layout_width="42dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="ド"
+        app:layout_constraintStart_toEndOf="@+id/btn_si1"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/btn_re1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_light"
         android:text="レ"
-        app:layout_constraintStart_toEndOf="@+id/btn_do"
+        app:layout_constraintStart_toEndOf="@+id/btn_do1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <android.support.constraint.Guideline
@@ -47,58 +58,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_mi"
-        android:layout_width="48dp"
+        android:id="@+id/btn_mi1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_green_dark"
         android:text="ミ"
-        app:layout_constraintStart_toEndOf="@+id/btn_re"
+        app:layout_constraintStart_toEndOf="@+id/btn_re1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_fa"
-        android:layout_width="48dp"
+        android:id="@+id/btn_fa1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_dark"
         android:text="ファ"
-        app:layout_constraintStart_toEndOf="@+id/btn_mi"
+        app:layout_constraintStart_toEndOf="@+id/btn_mi1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_so"
-        android:layout_width="48dp"
+        android:id="@+id/btn_so1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_blue_dark"
         android:text="ソ"
-        app:layout_constraintStart_toEndOf="@+id/btn_fa"
+        app:layout_constraintStart_toEndOf="@+id/btn_fa1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_ra"
-        android:layout_width="48dp"
+        android:id="@+id/btn_ra1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_purple"
         android:text="ラ"
-        app:layout_constraintStart_toEndOf="@+id/btn_so"
+        app:layout_constraintStart_toEndOf="@+id/btn_so1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_si"
-        android:layout_width="48dp"
+        android:id="@+id/btn_si1"
+        android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_light"
         android:text="シ"
-        app:layout_constraintStart_toEndOf="@+id/btn_ra"
+        app:layout_constraintStart_toEndOf="@+id/btn_ra1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
