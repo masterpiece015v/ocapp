@@ -4,7 +4,12 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
+import android.support.constraint.ConstraintSet
+import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -24,8 +29,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_ra1 : Button                //ラの鍵盤
     lateinit var btn_si1 : Button                //シの鍵盤
     lateinit var btn_do2 : Button               //高いドの鍵盤
-    lateinit var btn_play :Button               //再生のボタン
+    lateinit var btn_play : Button               //再生のボタン
     lateinit var btn_clear : Button             //クリアのボタン
+    lateinit var lay_score : ConstraintLayout   //楽譜
+    lateinit var const_set : ConstraintSet
+    var beforeId : Int = 0                      //ひとつ前のid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,15 +73,15 @@ class MainActivity : AppCompatActivity() {
     fun btnDo2(){
 
     }
+
     //再生ボタンをクリックした時の処理
     fun btnPlayClick(){
         setScore( "ド1" , 800 )
         setScore( "レ1" , 400 )
-
     }
+
     //scoreListを再生する非同期プログラム
     fun scorePlay(){
-
         GlobalScope.launch( Dispatchers.Main ){
             btn_play.isEnabled = false
             async( Dispatchers.Default ){
@@ -88,52 +96,61 @@ class MainActivity : AppCompatActivity() {
             btn_play.isEnabled = true
         }
     }
+
     //初期化処理
     fun init(){
         //音源の準備
         val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(2).build()
-        scaleMap.put("ド1",soundPool.load(this,R.raw.s_do,1))
-        scaleMap.put("レ1",soundPool.load(this,R.raw.s_re,1))
-        scaleMap.put("ミ1",soundPool.load(this,R.raw.s_mi,1))
+        scaleMap.put("ド1",  soundPool.load(this,R.raw.s_do,1))
+        scaleMap.put("レ1",  soundPool.load(this,R.raw.s_re,1))
+        scaleMap.put("ミ1",  soundPool.load(this,R.raw.s_mi,1))
         scaleMap.put("ファ1",soundPool.load(this,R.raw.s_fa,1))
-        scaleMap.put("ソ1",soundPool.load(this,R.raw.s_so,1))
-        scaleMap.put("ラ1",soundPool.load(this,R.raw.s_ra,1))
-        scaleMap.put("シ1",soundPool.load(this,R.raw.s_si,1) )
-        scaleMap.put("ド2",soundPool.load(this,R.raw.s_do2,1))
+        scaleMap.put("ソ1",  soundPool.load(this,R.raw.s_so,1))
+        scaleMap.put("ラ1",  soundPool.load(this,R.raw.s_ra,1))
+        scaleMap.put("シ1",  soundPool.load(this,R.raw.s_si,1))
+        scaleMap.put("ド2",  soundPool.load(this,R.raw.s_do2,1))
 
         //鍵盤にイベントを割り当てる
         btn_do1 = findViewById(R.id.btn_do1)
         btn_do1.setOnClickListener{
             btnDo1()
+            addLayScore( createImageView(R.drawable.onpu02), 80)
         }
         btn_re1 = findViewById(R.id.btn_re1)
         btn_re1.setOnClickListener{
             btnRe1()
+            addLayScore( createImageView(R.drawable.onpu02), 70)
         }
         btn_mi1=findViewById(R.id.btn_mi1)
         btn_mi1.setOnClickListener{
             btnMi1()
+            addLayScore( createImageView(R.drawable.onpu02), 60)
         }
         btn_fa1=findViewById(R.id.btn_fa1)
         btn_fa1.setOnClickListener{
             btnFa1()
+            addLayScore( createImageView(R.drawable.onpu02), 50)
         }
         btn_so1=findViewById(R.id.btn_so1)
         btn_so1.setOnClickListener{
             btnSo1()
+            addLayScore( createImageView(R.drawable.onpu02), 40)
         }
         btn_ra1=findViewById(R.id.btn_ra1)
         btn_ra1.setOnClickListener {
             btnRa1()
+            addLayScore( createImageView(R.drawable.onpu02), 30)
         }
         btn_si1=findViewById(R.id.btn_si1)
         btn_si1.setOnClickListener{
             btnSi1()
+            addLayScore( createImageView(R.drawable.onpu02), 20)
         }
         btn_do2= findViewById( R.id.btn_do2)
         btn_do2.setOnClickListener{
             btnDo2()
+            addLayScore( createImageView(R.drawable.onpu02), 10)
         }
         //楽譜を再生ボタン
         btn_play = findViewById(R.id.btn_play)
@@ -141,18 +158,45 @@ class MainActivity : AppCompatActivity() {
             btnPlayClick()
             scorePlay()
         }
-        //クリアボタン
-        //btn_clear = findViewById<Button>(R.id.btn_clear)
-        //btn_clear.setOnClickListener(Btn_AnswerClear_ClickListener())
-
+        //楽譜のレイアウト
+        lay_score = findViewById(R.id.lay_score)
+        //コンストレイントセット
+        const_set = ConstraintSet()
     }
 
     //音を設定する
     fun setScore( oto : String , delay : Long){
         scoreList.add( Note( oto , delay ))
     }
+
     //音を出す
     fun sound( oto :String ){
         soundPool.play( scaleMap[oto]!!,1.0f,1.0f,0,0,1.0f)
+    }
+
+    //画像を作る
+    fun createImageView( id : Int ): ImageView {
+        val img = ImageView( this )
+        img.setImageResource( id )
+        img.id = View.generateViewId()
+        return img
+    }
+
+    //音符をlay_scoreに追加する
+    fun addLayScore( img : ImageView , margin : Int){
+        const_set.clone( lay_score )
+        lay_score.addView( img )
+        Log.d("image:" , img.id.toString() )
+        const_set.constrainHeight( img.id, 80 )
+        const_set.constrainWidth( img.id, 50 )
+        if( beforeId==0) {
+            const_set.connect(img.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
+            const_set.connect(img.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP , margin)
+        }else{
+            const_set.connect(img.id, ConstraintSet.LEFT, beforeId, ConstraintSet.RIGHT)
+            const_set.connect(img.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP , margin)
+        }
+        beforeId = img.id
+        const_set.applyTo( lay_score )
     }
 }
