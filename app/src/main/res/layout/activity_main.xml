@@ -6,46 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_do1"
-        android:layout_width="42dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="ド"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
-    <Button
-        android:id="@+id/btn_do2"
-        android:layout_width="42dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="ド"
-        app:layout_constraintStart_toEndOf="@+id/btn_si1"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
-    <Button
-        android:id="@+id/btn_re1"
-        android:layout_width="42dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/holo_orange_light"
-        android:text="レ"
-        app:layout_constraintStart_toEndOf="@+id/btn_do1"
-        app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="196dp" />
-
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
@@ -57,15 +17,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="48dp" />
+
+    <EditText
+        android:id="@+id/edt_tempo"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="テンポ：♩="
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="203dp" />
+
     <Button
-        android:id="@+id/btn_mi1"
+        android:id="@+id/btn_si1"
         android:layout_width="42dp"
         android:layout_height="60dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
-        android:background="@android:color/holo_green_dark"
-        android:text="ミ"
-        app:layout_constraintStart_toEndOf="@+id/btn_re1"
+        android:background="@android:color/holo_red_light"
+        android:text="シ"
+        app:layout_constraintStart_toEndOf="@+id/btn_ra1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
@@ -80,6 +75,18 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
+        android:id="@+id/btn_do2"
+        android:layout_width="42dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_dark"
+        android:scrollbars="none"
+        android:text="ド"
+        app:layout_constraintStart_toEndOf="@+id/btn_si1"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+    <Button
         android:id="@+id/btn_so1"
         android:layout_width="42dp"
         android:layout_height="60dp"
@@ -88,6 +95,28 @@
         android:background="@android:color/holo_blue_dark"
         android:text="ソ"
         app:layout_constraintStart_toEndOf="@+id/btn_fa1"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/btn_do1"
+        android:layout_width="42dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="ド"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/btn_re1"
+        android:layout_width="42dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="レ"
+        app:layout_constraintStart_toEndOf="@+id/btn_do1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
@@ -102,14 +131,14 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_si1"
+        android:id="@+id/btn_mi1"
         android:layout_width="42dp"
         android:layout_height="60dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
-        android:background="@android:color/holo_red_light"
-        android:text="シ"
-        app:layout_constraintStart_toEndOf="@+id/btn_ra1"
+        android:background="@android:color/holo_green_dark"
+        android:text="ミ"
+        app:layout_constraintStart_toEndOf="@+id/btn_re1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
@@ -117,82 +146,38 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="7dp"
         android:text="再生"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="370dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="391dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/btn_clear"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="7dp"
         android:text="クリア"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toEndOf="@+id/btn_play"
-        app:layout_constraintTop_toBottomOf="@+id/guideline4" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="テンポ：♩="
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <EditText
-        android:id="@+id/edt_tempo"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="48dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="279dp" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/lay_score"
         android:layout_width="0dp"
-        android:layout_height="95dp"
+        android:layout_height="79dp"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3">
+        app:layout_constraintTop_toBottomOf="@+id/guideline4">
 
 
         <View
-            android:id="@+id/view2"
+            android:id="@+id/view"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
@@ -200,6 +185,68 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="50dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="387dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="283dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="99dp" />
 
 </android.support.constraint.ConstraintLayout>
