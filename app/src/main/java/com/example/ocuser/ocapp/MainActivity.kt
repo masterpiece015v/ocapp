@@ -59,29 +59,32 @@ class MainActivity : AppCompatActivity() {
     }
     //レの鍵盤
     fun btnRe1(){
-
+        sound( "レ1")
     }
     //ミの鍵盤
     fun btnMi1(){
-
+        sound( "ミ1")
     }
     //ファの鍵盤
     fun btnFa1(){
-
+        sound( "ファ1")
     }
     //ソの鍵盤
     fun btnSo1(){
-
+        sound( "ソ1")
     }
     //ラの鍵盤
     fun btnRa1(){
+        sound( "ラ1")
     }
     //シの鍵盤
     fun btnSi1(){
+        sound( "シ1")
 
     }
     //ドの鍵盤
     fun btnDo2(){
+        sound( "ド2")
 
     }
 
@@ -236,7 +239,7 @@ class MainActivity : AppCompatActivity() {
             "tgl02"->{ return 120 }
             "tgl04"->{ return 80 }
             "tgl08"->{ return 40 }
-            "tgl16"->{ return 0 }
+            "tgl16"->{ return 20 }
         }
         return 0
     }
@@ -266,46 +269,17 @@ class MainActivity : AppCompatActivity() {
     }
     //1小節チェック
     fun checkMeasure():Int{
+        val tglCost = mapOf("tgl00" to 0,"tgl02" to 8 , "tgl04" to 4,"tgl08" to 2,"tgl16" to 1)
         //-1:少ない 0:丁度 1:超えている
-        when(nowTgl){
-            "tgl00"->{
-                return if(measure==0)0 else 1
-            }
-            "tgl02"->{
-                if(measure+8>16){
-                    return 1
-                }else if(measure+8==16){
-                    return 0
-                }else{
-                    return -1
-                }
-            }
-            "tgl04"->{
-                if(measure+4>16){
-                    return 1
-                }else if(measure+4==16){
-                    return 0
-                }else{
-                    return -1
-                }
-            }
-            "tgl08"->{
-                if(measure+2>16){
-                    return 1
-                }else if(measure+2==16){
-                    return 0
-                }else{
-                    return -1
-                }
-            }
-            "tgl16"->{
-                if(measure+1>16){
-                    return 1
-                }else if(measure+16==16){
-                    return 0
-                }else{
-                    return -1
-                }
+        if(tglCost[nowTgl]==0){
+            return if(measure==0) 0 else 1
+        }else{
+            if(measure+tglCost[nowTgl]!!>16){
+                return 1
+            }else if(measure+tglCost[nowTgl]!! == 16){
+                return 0
+            }else{
+                return -1
             }
         }
         return 0
@@ -323,7 +297,7 @@ class MainActivity : AppCompatActivity() {
 
                 //最初の音符はLEFT_MARGIN=10
                 if (measure == 0 && measure_cnt==0) {
-                    w_margin = 50
+                    w_margin = 40
                 } else if(measure == 0 && measure_cnt > 0 ) {
                 } else {
                     w_margin += getLeftDist()
@@ -338,6 +312,7 @@ class MainActivity : AppCompatActivity() {
                     "tgl08"->{measure+=2}
                     "tgl16"->{measure+=1}
                 }
+                Log.d("debug","${check},${measure},${measure_cnt},${w_margin}")
             }
             0->{
                 //１小節の最後
@@ -354,13 +329,15 @@ class MainActivity : AppCompatActivity() {
                 measure = 0
                 measure_cnt+=1
 
-                w_margin = measure_cnt*320+60
+                Log.d("debug","${check},${measure},${measure_cnt},${w_margin}")
+
+                w_margin = measure_cnt*340+40
             }
             1->{
                 Toast.makeText(this,"数が合いません",Toast.LENGTH_SHORT).show()
             }
 
         }
-        Log.d("debug","${check},${measure},${measure_cnt},${w_margin}")
+
     }
 }
