@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_ra1 : Button                //ラの鍵盤
     lateinit var btn_si1 : Button                //シの鍵盤
     lateinit var btn_do2 : Button               //高いドの鍵盤
+    lateinit var btn_kyufu : Button             //休符ボタン
     lateinit var btn_play : Button               //再生のボタン
     lateinit var btn_clear : Button             //クリアのボタン
     lateinit var lay_score : ConstraintLayout   //楽譜
@@ -85,7 +86,6 @@ class MainActivity : AppCompatActivity() {
     //ドの鍵盤
     fun btnDo2(){
         sound( "ド2")
-
     }
 
     //再生ボタンをクリックした時の処理
@@ -196,6 +196,11 @@ class MainActivity : AppCompatActivity() {
             btnDo2()
             addLayScore( createImageView(getOnpuId()), 18)
         }
+        btn_kyufu = findViewById(R.id.btn_kyufu)
+        btn_kyufu.setOnClickListener {
+            addLayScore( createImageView(getKyufuId()),48)
+        }
+
         //楽譜を再生ボタン
         btn_play = findViewById(R.id.btn_play)
         btn_play.setOnClickListener{
@@ -229,6 +234,16 @@ class MainActivity : AppCompatActivity() {
             "tgl04"->{ return R.drawable.onpu04 }
             "tgl08"->{ return R.drawable.onpu08 }
             "tgl16"->{ return R.drawable.onpu16 }
+        }
+        return 0
+    }
+    fun getKyufuId():Int{
+        when(nowTgl){
+            "tgl00"->{return R.drawable.kyufu00 }
+            "tgl02"->{return R.drawable.kyufu02 }
+            "tgl04"->{return R.drawable.kyufu04 }
+            "tgl08"->{return R.drawable.kyufu08 }
+            "tgl16"->{return R.drawable.kyufu16 }
         }
         return 0
     }
