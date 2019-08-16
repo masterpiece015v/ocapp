@@ -35,34 +35,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     //ドの鍵盤
-    fun btnDo1(){
+    fun btnDo1Click(){
         sound("ド1")
     }
     //レの鍵盤
-    fun btnRe1(){
+    fun btnRe1Click(){
 
     }
     //ミの鍵盤
-    fun btnMi1(){
+    fun btnMi1Click(){
 
     }
     //ファの鍵盤
-    fun btnFa1(){
+    fun btnFa1Click(){
 
     }
     //ソの鍵盤
-    fun btnSo1(){
+    fun btnSo1Click(){
 
     }
     //ラの鍵盤
-    fun btnRa1(){
+    fun btnRa1Click(){
     }
     //シの鍵盤
-    fun btnSi1(){
+    fun btnSi1Click(){
 
     }
     //ドの鍵盤
-    fun btnDo2(){
+    fun btnDo2Click(){
 
     }
     //再生ボタンをクリックした時の処理
@@ -71,9 +71,10 @@ class MainActivity : AppCompatActivity() {
         setScore( "レ1" , 400 )
 
     }
+
+
     //scoreListを再生する非同期プログラム
     fun scorePlay(){
-
         GlobalScope.launch( Dispatchers.Main ){
             btn_play.isEnabled = false
             async( Dispatchers.Default ){
@@ -105,35 +106,35 @@ class MainActivity : AppCompatActivity() {
         //鍵盤にイベントを割り当てる
         btn_do1 = findViewById(R.id.btn_do1)
         btn_do1.setOnClickListener{
-            btnDo1()
+            btnDo1Click()
         }
         btn_re1 = findViewById(R.id.btn_re1)
         btn_re1.setOnClickListener{
-            btnRe1()
+            btnRe1Click()
         }
         btn_mi1=findViewById(R.id.btn_mi1)
         btn_mi1.setOnClickListener{
-            btnMi1()
+            btnMi1Click()
         }
         btn_fa1=findViewById(R.id.btn_fa1)
         btn_fa1.setOnClickListener{
-            btnFa1()
+            btnFa1Click()
         }
         btn_so1=findViewById(R.id.btn_so1)
         btn_so1.setOnClickListener{
-            btnSo1()
+            btnSo1Click()
         }
         btn_ra1=findViewById(R.id.btn_ra1)
         btn_ra1.setOnClickListener {
-            btnRa1()
+            btnRa1Click()
         }
         btn_si1=findViewById(R.id.btn_si1)
         btn_si1.setOnClickListener{
-            btnSi1()
+            btnSi1Click()
         }
         btn_do2= findViewById( R.id.btn_do2)
         btn_do2.setOnClickListener{
-            btnDo2()
+            btnDo2Click()
         }
         //楽譜を再生ボタン
         btn_play = findViewById(R.id.btn_play)
