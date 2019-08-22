@@ -1,5 +1,6 @@
 package com.example.ocuser.ocapp
 
+import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -17,6 +19,22 @@ import kotlinx.coroutines.launch
 
 data class Note(val oto : String , val split : String ,val delay:Long)
 
+//音階による高さを取得する
+/*fun gethmargin(oto:String):Int{
+    when( oto ){
+        "ド1"->{return 88}
+        "レ1"->{return 78}
+        "ミ1"->{return 68}
+        "ファ1"->{return 58}
+        "ソ1"->{return 48}
+        "ラ1"->{return 38}
+        "シ1"->{return 28}
+        "ド2"->{return 18}
+        "休"->{return 48}
+    }
+    return 0
+}
+*/
 class MainActivity : AppCompatActivity() {
     private lateinit var soundPool : SoundPool
     val scoreList = mutableListOf<Note>()        //楽譜
@@ -28,7 +46,11 @@ class MainActivity : AppCompatActivity() {
     var measure_cnt = 0         //1小節分の音符のカウント
     var col_cnt = 0             //3小節ずつ画面を変えるためのカウント
     var row_cnt = 0             //3小節ずつ画面を変えるためのカウント
-
+    var tempo = 120
+    val handler = Handler()
+    val oto_h = mapOf<String,Int>("ド1" to 38,"レ1" to 34,"ミ1" to 30,"ファ1" to 26,"ソ1" to 22,"ラ1" to 18,"シ1" to 14,"ド2" to 10,"休" to 26)
+    //音符の高さを格納しているマップ↑
+    lateinit var metrics : DisplayMetrics
     //View
     lateinit var btn_do1 : Button                //ドの鍵盤
     lateinit var btn_re1 : Button                //レの鍵盤
@@ -50,14 +72,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var swt_rec : Switch                 //録音スイッチ
     lateinit var edt_tempo : EditText
 
-    var tempo = 120
-    val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //初期化
-        init()
+        init(this)
     }
 
     //ドの鍵盤
@@ -108,9 +128,9 @@ class MainActivity : AppCompatActivity() {
                 scoreList.forEach{
                     handler.post{
                         if(it.oto != "休") {
-                            addLayScore(createImageView(getOnpuId(it.split)), gethmargin(it.oto),it.split)
+                            addLayScore(createImageView(getOnpuId(it.split)), convDp2Px(oto_h[it.oto]!!) ,it.split)
                         }else{
-                            addLayScore(createImageView(getKyufuId(it.split)), gethmargin(it.oto),it.split)
+                            addLayScore(createImageView(getKyufuId(it.split)), convDp2Px(oto_h[it.oto]!!),it.split)
                         }
                     }
                     if( it.oto != "休") {
@@ -127,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //初期化処理
-    fun init(){
+    fun init(context : Context){
         //音源の準備
         val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(2).build()
@@ -174,7 +194,7 @@ class MainActivity : AppCompatActivity() {
         btn_do1 = findViewById(R.id.btn_do1)
         btn_do1.setOnClickListener{
             btnDo1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ド1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["ド1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("ド1", nowTgl, getDelay())
             }
@@ -182,7 +202,7 @@ class MainActivity : AppCompatActivity() {
         btn_re1 = findViewById(R.id.btn_re1)
         btn_re1.setOnClickListener{
             btnRe1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("レ1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["レ1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("レ1", nowTgl, getDelay())
             }
@@ -190,7 +210,7 @@ class MainActivity : AppCompatActivity() {
         btn_mi1=findViewById(R.id.btn_mi1)
         btn_mi1.setOnClickListener{
             btnMi1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ミ1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["ミ1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("ミ1", nowTgl,getDelay())
             }
@@ -198,7 +218,7 @@ class MainActivity : AppCompatActivity() {
         btn_fa1=findViewById(R.id.btn_fa1)
         btn_fa1.setOnClickListener{
             btnFa1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ファ1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["ファ1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("ファ1", nowTgl, getDelay())
             }
@@ -206,7 +226,7 @@ class MainActivity : AppCompatActivity() {
         btn_so1=findViewById(R.id.btn_so1)
         btn_so1.setOnClickListener{
             btnSo1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ソ1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["ソ1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("ソ1", nowTgl, getDelay())
             }
@@ -214,7 +234,7 @@ class MainActivity : AppCompatActivity() {
         btn_ra1=findViewById(R.id.btn_ra1)
         btn_ra1.setOnClickListener {
             btnRa1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ラ1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["ラ1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("ラ1", nowTgl, getDelay())
             }
@@ -222,7 +242,7 @@ class MainActivity : AppCompatActivity() {
         btn_si1=findViewById(R.id.btn_si1)
         btn_si1.setOnClickListener{
             btnSi1()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("シ1"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["シ1"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("シ1",nowTgl, getDelay())
             }
@@ -230,14 +250,14 @@ class MainActivity : AppCompatActivity() {
         btn_do2= findViewById( R.id.btn_do2)
         btn_do2.setOnClickListener{
             btnDo2()
-            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ド2"),nowTgl)
+            addLayScore( createImageView(getOnpuId(nowTgl)), convDp2Px(oto_h["ド2"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("ド2", nowTgl, getDelay())
             }
         }
         btn_kyufu = findViewById(R.id.btn_kyufu)
         btn_kyufu.setOnClickListener {
-            addLayScore( createImageView(getKyufuId(nowTgl)),gethmargin("休"),nowTgl)
+            addLayScore( createImageView(getKyufuId(nowTgl)), convDp2Px(oto_h["休"]!!),nowTgl)
             if(swt_rec.isChecked ) {
                 setScore("休", nowTgl , getDelay())
             }
@@ -267,23 +287,11 @@ class MainActivity : AppCompatActivity() {
         //テンポを整数にする
         edt_tempo = findViewById(R.id.edt_tempo)
 
+        //ディスプレイの状態を取得
+        metrics = context.resources.displayMetrics
+
     }
 
-    //音階による高さを取得する
-    fun gethmargin(oto:String):Int{
-        when( oto ){
-            "ド1"->{return 88}
-            "レ1"->{return 78}
-            "ミ1"->{return 68}
-            "ファ1"->{return 58}
-            "ソ1"->{return 48}
-            "ラ1"->{return 38}
-            "シ1"->{return 28}
-            "ド2"->{return 18}
-            "休"->{return 48}
-        }
-        return 0
-    }
     //録音スイッチの切り替え
     fun swtRecCheckedChange(b : Boolean){
         tempo = Integer.parseInt( edt_tempo.text.toString() )
@@ -296,6 +304,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
     //1列分の音符を消去する
     fun layScoreClear(){
         //楽譜を消す
@@ -308,6 +317,7 @@ class MainActivity : AppCompatActivity() {
         //列カウントのクリア
         col_cnt = 0
     }
+
     //クリアボタンをクリックしたときのイベントメソッド
     fun btnClearClick(){
         layScoreClear()
@@ -339,11 +349,11 @@ class MainActivity : AppCompatActivity() {
     //tglにしたがって音符間の距離を取得
     fun getLeftDist(split : String):Int{
         when(split){
-            "tgl00"->{ return 160 }
-            "tgl02"->{ return 120 }
-            "tgl04"->{ return 80 }
-            "tgl08"->{ return 40 }
-            "tgl16"->{ return 20 }
+            "tgl00"->{ return convDp2Px(120) }
+            "tgl02"->{ return convDp2Px(60) }
+            "tgl04"->{ return convDp2Px(30) }
+            "tgl08"->{ return convDp2Px(15) }
+            "tgl16"->{ return convDp2Px(7) }
         }
         return 0
     }
@@ -355,10 +365,10 @@ class MainActivity : AppCompatActivity() {
                 return (60.0/tempo*4*1000).toLong()
             }
             "tgl02" -> {
-                return ( 60.0 / tempo * 2 * 1000).toLong()
+                return (60.0/tempo*2*1000).toLong()
             }
             "tgl04" -> {
-                return ( 60.0 / tempo *1000 ).toLong()
+                return (60.0/tempo*1000 ).toLong()
             }
             "tgl08"-> {
                 return (60.0/tempo/2*1000).toLong()
@@ -395,15 +405,15 @@ class MainActivity : AppCompatActivity() {
         return img
     }
     //1小節チェック
-    fun checkMeasure():Int{
+    fun checkMeasure(split: String):Int{
         val tglCost = mapOf("tgl00" to 0,"tgl02" to 8 , "tgl04" to 4,"tgl08" to 2,"tgl16" to 1)
         //-1:少ない 0:丁度 1:超えている
-        if(tglCost[nowTgl]==0){
+        if(tglCost[split]==0){
             return if(measure==0) 0 else 1
         }else{
-            if(measure+tglCost[nowTgl]!!>16){
+            if(measure+tglCost[split]!!>16){
                 return 1
-            }else if(measure+tglCost[nowTgl]!! == 16){
+            }else if(measure+tglCost[split]!! == 16){
                 col_cnt++
                 return 0
             }else{
@@ -412,9 +422,10 @@ class MainActivity : AppCompatActivity() {
         }
         return 0
     }
+
     //音符をlay_scoreに追加する
     fun addLayScore( img : ImageView , h_margin : Int , split : String ){
-        val check = checkMeasure()
+        val check = checkMeasure(split)
         when(check){
             -1->{
                 //3小節埋まっていたら音符を消す
@@ -424,12 +435,12 @@ class MainActivity : AppCompatActivity() {
                 //１小節の最初又は途中
                 const_set.clone(lay_score)
                 lay_score.addView(img)
-                const_set.constrainHeight(img.id, 80)
-                const_set.constrainWidth(img.id, 45)
+                const_set.constrainHeight(img.id, convDp2Px(27))
+                const_set.constrainWidth(img.id, convDp2Px(16))
 
                 //最初の音符はLEFT_MARGIN=10
                 if (measure == 0 && measure_cnt==0) {
-                    w_margin = 40
+                    w_margin = convDp2Px(10)
                 } else if(measure == 0 && measure_cnt > 0 ) {
                 } else {
                     w_margin += getLeftDist(split)
@@ -450,8 +461,8 @@ class MainActivity : AppCompatActivity() {
                 //１小節の最後
                 const_set.clone(lay_score)
                 lay_score.addView(img)
-                const_set.constrainHeight(img.id, 80)
-                const_set.constrainWidth(img.id, 45)
+                const_set.constrainHeight(img.id, convDp2Px(27))
+                const_set.constrainWidth(img.id, convDp2Px(16))
 
                 w_margin += getLeftDist(split)
 
@@ -463,7 +474,7 @@ class MainActivity : AppCompatActivity() {
 
                 Log.d("debug","${check},${measure},${measure_cnt},${w_margin}")
 
-                w_margin = measure_cnt*340+40
+                w_margin = measure_cnt*convDp2Px(120)+convDp2Px(10)
             }
             1->{
                 Toast.makeText(this,"数が合いません",Toast.LENGTH_SHORT).show()
@@ -471,5 +482,13 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    fun convDp2Px(dp : Int ):Int{
+        return (dp * metrics.density).toInt()
+    }
+
+    fun convPx2Dp(px : Int):Int{
+        return (px / metrics.density).toInt()
     }
 }
