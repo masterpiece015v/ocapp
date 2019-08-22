@@ -4,20 +4,18 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
-import android.widget.ToggleButton
+import android.widget.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-data class Note(val oto : String , val delay : Long )
+data class Note(val oto : String , val split : String ,val delay:Long)
 
 class MainActivity : AppCompatActivity() {
     private lateinit var soundPool : SoundPool
@@ -26,8 +24,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var const_set : ConstraintSet      //制約のセット
     var w_margin : Int = 0                      //ひとつ前のid
     var nowTgl = "tgl04"
-    var measure = 0 //１小節分の計算
-    var measure_cnt = 0
+    var measure = 0             //１小節分の音符の計算
+    var measure_cnt = 0         //1小節分の音符のカウント
+    var col_cnt = 0             //3小節ずつ画面を変えるためのカウント
+    var row_cnt = 0             //3小節ずつ画面を変えるためのカウント
+
     //View
     lateinit var btn_do1 : Button                //ドの鍵盤
     lateinit var btn_re1 : Button                //レの鍵盤
@@ -46,6 +47,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var tgl04 : ToggleButton
     lateinit var tgl08 : ToggleButton
     lateinit var tgl16 : ToggleButton
+    lateinit var swt_rec : Switch                 //録音スイッチ
+    lateinit var edt_tempo : EditText
+
+    var tempo = 120
+    val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +96,8 @@ class MainActivity : AppCompatActivity() {
 
     //再生ボタンをクリックした時の処理
     fun btnPlayClick(){
-        setScore( "ド1" , 800 )
-        setScore( "レ1" , 400 )
+        layScoreClear()
+        scorePlay()
     }
 
     //scoreListを再生する非同期プログラム
@@ -100,9 +106,18 @@ class MainActivity : AppCompatActivity() {
             btn_play.isEnabled = false
             async( Dispatchers.Default ){
                 scoreList.forEach{
+                    handler.post{
+                        if(it.oto != "休") {
+                            addLayScore(createImageView(getOnpuId(it.split)), gethmargin(it.oto),it.split)
+                        }else{
+                            addLayScore(createImageView(getKyufuId(it.split)), gethmargin(it.oto),it.split)
+                        }
+                    }
                     if( it.oto != "休") {
                         sound(it.oto)
                     }
+                    Log.d("delay" , it.delay.toString())
+
                     Thread.sleep( it.delay )
                 }
                 return@async
@@ -159,53 +174,79 @@ class MainActivity : AppCompatActivity() {
         btn_do1 = findViewById(R.id.btn_do1)
         btn_do1.setOnClickListener{
             btnDo1()
-            addLayScore( createImageView(getOnpuId()), 88)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ド1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("ド1", nowTgl, getDelay())
+            }
         }
         btn_re1 = findViewById(R.id.btn_re1)
         btn_re1.setOnClickListener{
             btnRe1()
-            addLayScore( createImageView(getOnpuId()), 78)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("レ1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("レ1", nowTgl, getDelay())
+            }
         }
         btn_mi1=findViewById(R.id.btn_mi1)
         btn_mi1.setOnClickListener{
             btnMi1()
-            addLayScore( createImageView(getOnpuId()), 68)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ミ1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("ミ1", nowTgl,getDelay())
+            }
         }
         btn_fa1=findViewById(R.id.btn_fa1)
         btn_fa1.setOnClickListener{
             btnFa1()
-            addLayScore( createImageView(getOnpuId()), 58)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ファ1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("ファ1", nowTgl, getDelay())
+            }
         }
         btn_so1=findViewById(R.id.btn_so1)
         btn_so1.setOnClickListener{
             btnSo1()
-            addLayScore( createImageView(getOnpuId()), 48)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ソ1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("ソ1", nowTgl, getDelay())
+            }
         }
         btn_ra1=findViewById(R.id.btn_ra1)
         btn_ra1.setOnClickListener {
             btnRa1()
-            addLayScore( createImageView(getOnpuId()), 38)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ラ1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("ラ1", nowTgl, getDelay())
+            }
         }
         btn_si1=findViewById(R.id.btn_si1)
         btn_si1.setOnClickListener{
             btnSi1()
-            addLayScore( createImageView(getOnpuId()), 28)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("シ1"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("シ1",nowTgl, getDelay())
+            }
         }
         btn_do2= findViewById( R.id.btn_do2)
         btn_do2.setOnClickListener{
             btnDo2()
-            addLayScore( createImageView(getOnpuId()), 18)
+            addLayScore( createImageView(getOnpuId(nowTgl)), gethmargin("ド2"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("ド2", nowTgl, getDelay())
+            }
         }
         btn_kyufu = findViewById(R.id.btn_kyufu)
         btn_kyufu.setOnClickListener {
-            addLayScore( createImageView(getKyufuId()),48)
+            addLayScore( createImageView(getKyufuId(nowTgl)),gethmargin("休"),nowTgl)
+            if(swt_rec.isChecked ) {
+                setScore("休", nowTgl , getDelay())
+            }
         }
 
         //楽譜を再生ボタン
         btn_play = findViewById(R.id.btn_play)
         btn_play.setOnClickListener{
             btnPlayClick()
-            scorePlay()
         }
         //クリアボタン
         btn_clear = findViewById(R.id.btn_clear)
@@ -216,19 +257,67 @@ class MainActivity : AppCompatActivity() {
         lay_score = findViewById(R.id.lay_score)
         //コンストレイントセット
         const_set = ConstraintSet()
+
+        //録音スイッチ
+        swt_rec = findViewById(R.id.swt_rec)
+        swt_rec.setOnCheckedChangeListener { compoundButton, b ->
+            swtRecCheckedChange(b)
+        }
+
+        //テンポを整数にする
+        edt_tempo = findViewById(R.id.edt_tempo)
+
     }
 
-    //クリアボタンをクリックしたときのイベントメソッド
-    fun btnClearClick(){
+    //音階による高さを取得する
+    fun gethmargin(oto:String):Int{
+        when( oto ){
+            "ド1"->{return 88}
+            "レ1"->{return 78}
+            "ミ1"->{return 68}
+            "ファ1"->{return 58}
+            "ソ1"->{return 48}
+            "ラ1"->{return 38}
+            "シ1"->{return 28}
+            "ド2"->{return 18}
+            "休"->{return 48}
+        }
+        return 0
+    }
+    //録音スイッチの切り替え
+    fun swtRecCheckedChange(b : Boolean){
+        tempo = Integer.parseInt( edt_tempo.text.toString() )
+        if( b == true){
+            swt_rec.text = "Rec"
+            btn_play.isEnabled = false
+        }else{
+            swt_rec.text = "Stop"
+            btn_play.isEnabled = true
+
+        }
+    }
+    //1列分の音符を消去する
+    fun layScoreClear(){
+        //楽譜を消す
         lay_score.removeAllViews()
+        //1小節のカウントを0クリアする
         measure_cnt = 0
         measure = 0
+        //ひとつ前のID
         w_margin = 0
+        //列カウントのクリア
+        col_cnt = 0
+    }
+    //クリアボタンをクリックしたときのイベントメソッド
+    fun btnClearClick(){
+        layScoreClear()
+        scoreList.clear()
+        row_cnt = 0     //行カウント
     }
 
     //tglにしたがって音符のIDを取得する
-    fun getOnpuId():Int{
-        when(nowTgl){
+    fun getOnpuId(split : String):Int{
+        when(split){
             "tgl00"->{ return R.drawable.onpu02 }
             "tgl02"->{ return R.drawable.onpu02 }
             "tgl04"->{ return R.drawable.onpu04 }
@@ -237,8 +326,8 @@ class MainActivity : AppCompatActivity() {
         }
         return 0
     }
-    fun getKyufuId():Int{
-        when(nowTgl){
+    fun getKyufuId(split : String):Int{
+        when(split){
             "tgl00"->{return R.drawable.kyufu00 }
             "tgl02"->{return R.drawable.kyufu02 }
             "tgl04"->{return R.drawable.kyufu04 }
@@ -248,13 +337,36 @@ class MainActivity : AppCompatActivity() {
         return 0
     }
     //tglにしたがって音符間の距離を取得
-    fun getLeftDist():Int{
-        when(nowTgl){
+    fun getLeftDist(split : String):Int{
+        when(split){
             "tgl00"->{ return 160 }
             "tgl02"->{ return 120 }
             "tgl04"->{ return 80 }
             "tgl08"->{ return 40 }
             "tgl16"->{ return 20 }
+        }
+        return 0
+    }
+
+    //テンポによる間隔を取得
+    fun getDelay():Long{
+        when( nowTgl ){
+            "tgl00" -> {
+                return (60.0/tempo*4*1000).toLong()
+            }
+            "tgl02" -> {
+                return ( 60.0 / tempo * 2 * 1000).toLong()
+            }
+            "tgl04" -> {
+                return ( 60.0 / tempo *1000 ).toLong()
+            }
+            "tgl08"-> {
+                return (60.0/tempo/2*1000).toLong()
+            }
+            "tgl16"->{
+                return (60.0/tempo/4*1000).toLong()
+            }
+
         }
         return 0
     }
@@ -268,8 +380,8 @@ class MainActivity : AppCompatActivity() {
         if(tglname!="tgl16"){ tgl16.isChecked = false }
     }
     //音を設定する
-    fun setScore( oto : String , delay : Long){
-        scoreList.add( Note( oto , delay ))
+    fun setScore( oto : String , split : String ,delay : Long){
+        scoreList.add( Note( oto ,split, delay ))
     }
     //音を出す
     fun sound( oto :String ){
@@ -292,6 +404,7 @@ class MainActivity : AppCompatActivity() {
             if(measure+tglCost[nowTgl]!!>16){
                 return 1
             }else if(measure+tglCost[nowTgl]!! == 16){
+                col_cnt++
                 return 0
             }else{
                 return -1
@@ -300,10 +413,14 @@ class MainActivity : AppCompatActivity() {
         return 0
     }
     //音符をlay_scoreに追加する
-    fun addLayScore( img : ImageView , h_margin : Int ){
+    fun addLayScore( img : ImageView , h_margin : Int , split : String ){
         val check = checkMeasure()
         when(check){
             -1->{
+                //3小節埋まっていたら音符を消す
+                if( col_cnt >= 3 ){
+                    layScoreClear()
+                }
                 //１小節の最初又は途中
                 const_set.clone(lay_score)
                 lay_score.addView(img)
@@ -315,12 +432,12 @@ class MainActivity : AppCompatActivity() {
                     w_margin = 40
                 } else if(measure == 0 && measure_cnt > 0 ) {
                 } else {
-                    w_margin += getLeftDist()
+                    w_margin += getLeftDist(split)
                 }
                 const_set.connect(img.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, w_margin)
                 const_set.connect(img.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, h_margin)
                 const_set.applyTo(lay_score)
-                when(nowTgl){
+                when(split){
                     "tgl00"->{measure=0}
                     "tgl02"->{measure+=8}
                     "tgl04"->{measure+=4}
@@ -336,7 +453,7 @@ class MainActivity : AppCompatActivity() {
                 const_set.constrainHeight(img.id, 80)
                 const_set.constrainWidth(img.id, 45)
 
-                w_margin += getLeftDist()
+                w_margin += getLeftDist(split)
 
                 const_set.connect(img.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, w_margin)
                 const_set.connect(img.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, h_margin)
