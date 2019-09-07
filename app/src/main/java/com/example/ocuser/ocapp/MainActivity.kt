@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_do2 : Button               //高いドの鍵盤
     lateinit var btn_play : Button               //再生のボタン
     lateinit var btn_clear : Button             //クリアのボタン
-    lateinit var lay_score : ConstraintLayout   //楽譜
     lateinit var const_set : ConstraintSet
     var beforeId : Int = 0                      //ひとつ前のid
 
@@ -121,7 +120,6 @@ class MainActivity : AppCompatActivity() {
         btn_ra1=findViewById(R.id.btn_ra1)
         btn_ra1.setOnClickListener {
             btnRa1Click()
-            addLayScore( createImageView(R.drawable.onpu02), 30)
         }
         btn_si1=findViewById(R.id.btn_si1)
         btn_si1.setOnClickListener{
@@ -137,8 +135,6 @@ class MainActivity : AppCompatActivity() {
             makeScore()
             scorePlay()
         }
-        //楽譜のレイアウト
-        lay_score = findViewById(R.id.lay_score)
         //コンストレイントセット
         const_set = ConstraintSet()
     }
@@ -159,23 +155,5 @@ class MainActivity : AppCompatActivity() {
         img.setImageResource( id )
         img.id = View.generateViewId()
         return img
-    }
-
-    //音符をlay_scoreに追加する
-    fun addLayScore( img : ImageView , margin : Int){
-        const_set.clone( lay_score )
-        lay_score.addView( img )
-        Log.d("image:" , img.id.toString() )
-        const_set.constrainHeight( img.id, 80 )
-        const_set.constrainWidth( img.id, 50 )
-        if( beforeId==0) {
-            const_set.connect(img.id, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT)
-            const_set.connect(img.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP , margin)
-        }else{
-            const_set.connect(img.id, ConstraintSet.LEFT, beforeId, ConstraintSet.RIGHT)
-            const_set.connect(img.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP , margin)
-        }
-        beforeId = img.id
-        const_set.applyTo( lay_score )
     }
 }
