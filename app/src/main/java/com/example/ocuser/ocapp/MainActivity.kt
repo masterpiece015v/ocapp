@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_play : Button               //再生のボタン
     lateinit var btn_clear : Button             //クリアのボタン
     lateinit var const_set : ConstraintSet
-    var beforeId : Int = 0                      //ひとつ前のid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
