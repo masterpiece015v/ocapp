@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     //ドの鍵盤
     fun btnDo1Click(){
-
+        sound( "ド1" )
     }
     //レの鍵盤
     fun btnRe1Click(){
@@ -167,5 +167,5 @@ class MainActivity : AppCompatActivity() {
     fun sound( oto :String ){
         soundPool.play( scaleMap[oto]!!,1.0f,1.0f,0,0,1.0f)
     }
-    
+
 }
