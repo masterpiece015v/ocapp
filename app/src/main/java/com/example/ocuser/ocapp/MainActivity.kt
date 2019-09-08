@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_do2 : Button               //高いドの鍵盤
     lateinit var btn_play : Button               //再生のボタン
     lateinit var btn_clear : Button             //クリアのボタン
-    lateinit var const_set : ConstraintSet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,27 +40,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     //ドの鍵盤
-    fun btnDo1Click(){ sound("ド1") }
+    fun btnDo1Click(){
+
+    }
     //レの鍵盤
-    fun btnRe1Click(){}
+    fun btnRe1Click(){
+
+    }
     //ミの鍵盤
-    fun btnMi1Click(){}
+    fun btnMi1Click(){
+
+    }
     //ファの鍵盤
-    fun btnFa1Click(){}
+    fun btnFa1Click(){
+
+    }
     //ソの鍵盤
-    fun btnSo1Click(){}
+    fun btnSo1Click(){
+
+    }
     //ラの鍵盤
-    fun btnRa1Click(){}
+    fun btnRa1Click(){
+
+    }
     //シの鍵盤
-    fun btnSi1Click(){}
+    fun btnSi1Click(){
+
+    }
     //ドの鍵盤
-    fun btnDo2Click(){}
+    fun btnDo2Click(){
+
+    }
 
     //再生ボタンをクリックした時の処理
     fun makeScore(){
         //oto=音階,delay=長さ
+        setScore( "ド1" , 200 )
+        setScore( "レ1" , 200 )
+        setScore("ミ1", 400)
+        setScore( "ファ1" , 500)
+        setScore("ミ1",300)
+        setScore( "レ1" , 500)
         setScore( "ド1" , 800 )
-        setScore( "レ1" , 400 )
+        setScore( "休" , 500 )
+
     }
 
     //scoreListを再生する非同期プログラム
@@ -134,8 +156,6 @@ class MainActivity : AppCompatActivity() {
             makeScore()
             scorePlay()
         }
-        //コンストレイントセット
-        const_set = ConstraintSet()
     }
 
     //音を設定する
@@ -147,12 +167,5 @@ class MainActivity : AppCompatActivity() {
     fun sound( oto :String ){
         soundPool.play( scaleMap[oto]!!,1.0f,1.0f,0,0,1.0f)
     }
-
-    //画像を作る
-    fun createImageView( id : Int ): ImageView {
-        val img = ImageView( this )
-        img.setImageResource( id )
-        img.id = View.generateViewId()
-        return img
-    }
+    
 }
