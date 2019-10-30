@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_do1"
+        android:id="@+id/do1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="8dp"
@@ -18,25 +18,25 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_do2"
+        android:id="@+id/do2"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_dark"
         android:text="ド"
-        app:layout_constraintStart_toEndOf="@+id/btn_si1"
+        app:layout_constraintStart_toEndOf="@+id/si1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_re1"
+        android:id="@+id/re1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_light"
         android:text="レ"
-        app:layout_constraintStart_toEndOf="@+id/btn_do1"
+        app:layout_constraintStart_toEndOf="@+id/do1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <android.support.constraint.Guideline
@@ -46,82 +46,60 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="54dp" />
 
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="作曲"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/btn_mi1"
+        android:id="@+id/mi1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_green_dark"
         android:text="ミ"
-        app:layout_constraintStart_toEndOf="@+id/btn_re1"
+        app:layout_constraintStart_toEndOf="@+id/re1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_fa1"
+        android:id="@+id/fa1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_dark"
         android:text="ファ"
-        app:layout_constraintStart_toEndOf="@+id/btn_mi1"
+        app:layout_constraintStart_toEndOf="@+id/mi1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_so1"
+        android:id="@+id/so1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_blue_dark"
         android:text="ソ"
-        app:layout_constraintStart_toEndOf="@+id/btn_fa1"
+        app:layout_constraintStart_toEndOf="@+id/fa1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_ra1"
+        android:id="@+id/ra1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_purple"
         android:text="ラ"
-        app:layout_constraintStart_toEndOf="@+id/btn_so1"
+        app:layout_constraintStart_toEndOf="@+id/so1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/btn_si1"
+        android:id="@+id/si1"
         android:layout_width="42dp"
         android:layout_height="108dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_light"
         android:text="シ"
-        app:layout_constraintStart_toEndOf="@+id/btn_ra1"
+        app:layout_constraintStart_toEndOf="@+id/ra1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
-
-    <Button
-        android:id="@+id/btn_play"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:text="再生"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -131,14 +109,13 @@
         app:layout_constraintGuide_begin="183dp" />
 
     <Button
-        android:id="@+id/btn_clear"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="4dp"
-        android:text="クリア"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toEndOf="@+id/btn_play"
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="23dp"
+        android:text="再生"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
 </android.support.constraint.ConstraintLayout>
