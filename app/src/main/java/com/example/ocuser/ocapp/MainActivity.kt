@@ -15,7 +15,7 @@ data class Note(val oto : String , val delay : Long )
 class MainActivity : AppCompatActivity() {
     private lateinit var soundPool : SoundPool
     val scoreList = mutableListOf<Note>()            //楽譜
-    val scaleMap = mutableMapOf<String,Int>()    //音階と音源の対応
+    val scaleMap = mutableMapOf<String,Int>()       //音階と音源の対応
     lateinit var do1 : Button               //ドの鍵盤
     lateinit var dore1 : Button             //
     lateinit var re1 : Button               //レの鍵盤
