@@ -103,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="54dp" />
+        app:layout_constraintGuide_begin="81dp" />
 
     <Button
         android:id="@+id/mi1"
@@ -160,7 +160,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="180dp" />
+        app:layout_constraintGuide_begin="223dp" />
 
     <Button
         android:id="@+id/play"
@@ -277,6 +277,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="308dp" />
+        app:layout_constraintGuide_begin="366dp" />
 
 </android.support.constraint.ConstraintLayout>
