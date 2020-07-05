@@ -4,7 +4,6 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         //初期化
         init()
         //タイトルを表示する
-        
+
         //鍵盤にイベントを割り当てる
 
 
@@ -80,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         scaleMap.put("rasi1",  soundPool.load(this,R.raw.s_rasi1,1))
         scaleMap.put("si1",  soundPool.load(this,R.raw.s_si,1))
         scaleMap.put("do2",  soundPool.load(this,R.raw.s_do2,1))
+        scaleMap.put("dore2",  soundPool.load(this,R.raw.s_dore2,1))
 
         //楽譜を再生ボタン
         play.setOnClickListener{

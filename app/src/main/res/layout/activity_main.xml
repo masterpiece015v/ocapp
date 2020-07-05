@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/do1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_dark"
@@ -18,8 +18,8 @@
 
     <Button
         android:id="@+id/do2"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_dark"
@@ -28,8 +28,8 @@
 
     <Button
         android:id="@+id/re1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_light"
@@ -45,8 +45,8 @@
 
     <Button
         android:id="@+id/mi1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_green_dark"
@@ -55,8 +55,8 @@
 
     <Button
         android:id="@+id/fa1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_dark"
@@ -65,8 +65,8 @@
 
     <Button
         android:id="@+id/so1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_blue_dark"
@@ -75,8 +75,8 @@
 
     <Button
         android:id="@+id/ra1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_purple"
@@ -85,8 +85,8 @@
 
     <Button
         android:id="@+id/si1"
-        android:layout_width="42dp"
-        android:layout_height="108dp"
+        android:layout_width="38dp"
+        android:layout_height="120dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_light"
@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="183dp" />
+        app:layout_constraintGuide_begin="220dp" />
 
     <Button
         android:id="@+id/play"
@@ -112,52 +112,62 @@
 
     <Button
         android:id="@+id/dore1"
-        android:layout_width="42dp"
+        android:layout_width="30dp"
         android:layout_height="80dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/do1"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <Button
         android:id="@+id/remi1"
-        android:layout_width="42dp"
+        android:layout_width="30dp"
         android:layout_height="80dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/dore1"
+        app:layout_constraintStart_toEndOf="@+id/do1"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <Button
         android:id="@+id/faso1"
-        android:layout_width="42dp"
+        android:layout_width="30dp"
         android:layout_height="80dp"
-        android:layout_marginStart="45dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/remi1"
+        app:layout_constraintStart_toStartOf="@+id/fa1"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <Button
         android:id="@+id/sora1"
-        android:layout_width="42dp"
+        android:layout_width="30dp"
         android:layout_height="80dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/faso1"
+        app:layout_constraintStart_toEndOf="@+id/fa1"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <Button
         android:id="@+id/rasi1"
-        android:layout_width="42dp"
+        android:layout_width="30dp"
         android:layout_height="80dp"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/black"
-        app:layout_constraintStart_toEndOf="@+id/sora1"
+        app:layout_constraintStart_toEndOf="@+id/so1"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/dore2"
+        android:layout_width="30dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="@+id/do2"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 </android.support.constraint.ConstraintLayout>
