@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.activity_main.*
 
 data class Note(val oto : String , val delay : Long )
 
@@ -16,16 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var soundPool : SoundPool
     val scoreList = mutableListOf<Note>()        //楽譜
     val scaleMap = mutableMapOf<String,Int>()    //音階と音源の対応
-    lateinit var do1 : Button                //ドの鍵盤
-    lateinit var re1 : Button                //レの鍵盤
-    lateinit var mi1 : Button                //ミの鍵盤
-    lateinit var fa1 : Button                //ファの鍵盤
-    lateinit var so1 : Button                //ソの鍵盤
-    lateinit var ra1 : Button                //ラの鍵盤
-    lateinit var si1 : Button                //シの鍵盤
-    lateinit var do2 : Button               //高いドの鍵盤
-    lateinit var play : Button               //再生のボタン
-    lateinit var clear : Button             //クリアのボタン
 
     //アプリケーションが起動するときに自動で動く
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,53 +24,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //初期化
         init()
+        //タイトルを表示する
+        
+        //鍵盤にイベントを割り当てる
 
-    }
-
-    //ドの鍵盤
-    fun btnDo1Click(){
-        sound( "ド1" )
-    }
-    //レの鍵盤
-    fun btnRe1Click(){
-
-    }
-    //ミの鍵盤
-    fun btnMi1Click(){
-
-    }
-    //ファの鍵盤
-    fun btnFa1Click(){
-
-    }
-    //ソの鍵盤
-    fun btnSo1Click(){
-
-    }
-    //ラの鍵盤
-    fun btnRa1Click(){
-
-    }
-    //シの鍵盤
-    fun btnSi1Click(){
-
-    }
-    //ドの鍵盤
-    fun btnDo2Click(){
 
     }
 
     //再生ボタンをクリックした時の処理
     fun makeScore(){
         //oto=音階,delay=長さ
-        setScore( "ド1" , 200 )
-        setScore( "レ1" , 200 )
-        setScore("ミ1", 400)
-        setScore( "ファ1" , 500)
-        setScore("ミ1",300)
-        setScore( "レ1" , 500)
-        setScore( "ド1" , 800 )
-        setScore( "休" , 500 )
+        setScore( "do1" , 200 )
+        setScore( "re1" , 200 )
+        setScore( "mi1", 400)
+        setScore( "fa1" , 500)
+        setScore( "mi1",300)
+        setScore( "re1" , 500)
+        setScore( "do1" , 800 )
+        setScore( "-" , 500 )
 
     }
 
@@ -89,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             play.isEnabled = false
             async( Dispatchers.Default ){
                 scoreList.forEach{
-                    if( it.oto != "休") {
+                    if( it.oto != "-") {
                         sound(it.oto)
                     }
                     Thread.sleep( it.delay )
@@ -105,50 +67,21 @@ class MainActivity : AppCompatActivity() {
         //音源の準備
         val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(2).build()
-        scaleMap.put("ド1",  soundPool.load(this,R.raw.s_do,1))
-        scaleMap.put("レ1",  soundPool.load(this,R.raw.s_re,1))
-        scaleMap.put("ミ1",  soundPool.load(this,R.raw.s_mi,1))
-        scaleMap.put("ファ1",soundPool.load(this,R.raw.s_fa,1))
-        scaleMap.put("ソ1",  soundPool.load(this,R.raw.s_so,1))
-        scaleMap.put("ラ1",  soundPool.load(this,R.raw.s_ra,1))
-        scaleMap.put("シ1",  soundPool.load(this,R.raw.s_si,1))
-        scaleMap.put("ド2",  soundPool.load(this,R.raw.s_do2,1))
+        scaleMap.put("do1",  soundPool.load(this,R.raw.s_do,1))
+        scaleMap.put("dore1",  soundPool.load(this,R.raw.s_dore1,1))
+        scaleMap.put("re1",  soundPool.load(this,R.raw.s_re,1))
+        scaleMap.put("remi1",  soundPool.load(this,R.raw.s_remi1,1))
+        scaleMap.put("mi1",  soundPool.load(this,R.raw.s_mi,1))
+        scaleMap.put("fa1",soundPool.load(this,R.raw.s_fa,1))
+        scaleMap.put("faso1",  soundPool.load(this,R.raw.s_faso1,1))
+        scaleMap.put("so1",  soundPool.load(this,R.raw.s_so,1))
+        scaleMap.put("sora1",  soundPool.load(this,R.raw.s_sora1,1))
+        scaleMap.put("ra1",  soundPool.load(this,R.raw.s_ra,1))
+        scaleMap.put("rasi1",  soundPool.load(this,R.raw.s_rasi1,1))
+        scaleMap.put("si1",  soundPool.load(this,R.raw.s_si,1))
+        scaleMap.put("do2",  soundPool.load(this,R.raw.s_do2,1))
 
-        //鍵盤にイベントを割り当てる
-        do1 = findViewById(R.id.do1)
-        do1.setOnClickListener{
-            btnDo1Click()
-                    }
-        re1 = findViewById(R.id.re1)
-        re1.setOnClickListener{
-            btnRe1Click()
-                    }
-        mi1=findViewById(R.id.mi1)
-        mi1.setOnClickListener{
-            btnMi1Click()
-                   }
-        fa1=findViewById(R.id.fa1)
-        fa1.setOnClickListener {
-            btnFa1Click()
-        }
-        so1=findViewById(R.id.so1)
-        so1.setOnClickListener{
-            btnSo1Click()
-                    }
-        ra1=findViewById(R.id.ra1)
-        ra1.setOnClickListener {
-            btnRa1Click()
-        }
-        si1=findViewById(R.id.si1)
-        si1.setOnClickListener{
-            btnSi1Click()
-        }
-        do2= findViewById( R.id.do2)
-        do2.setOnClickListener{
-            btnDo2Click()
-        }
         //楽譜を再生ボタン
-        play = findViewById(R.id.play)
         play.setOnClickListener{
             makeScore()
             scorePlay()

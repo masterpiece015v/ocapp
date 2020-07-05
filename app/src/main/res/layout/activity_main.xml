@@ -13,7 +13,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_dark"
-        android:text="ド"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -24,7 +23,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_dark"
-        android:text="ド"
         app:layout_constraintStart_toEndOf="@+id/si1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -35,7 +33,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_light"
-        android:text="レ"
         app:layout_constraintStart_toEndOf="@+id/do1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -53,7 +50,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_green_dark"
-        android:text="ミ"
         app:layout_constraintStart_toEndOf="@+id/re1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -64,7 +60,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_orange_dark"
-        android:text="ファ"
         app:layout_constraintStart_toEndOf="@+id/mi1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -75,7 +70,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="ソ"
         app:layout_constraintStart_toEndOf="@+id/fa1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -86,7 +80,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_purple"
-        android:text="ラ"
         app:layout_constraintStart_toEndOf="@+id/so1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -97,7 +90,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_red_light"
-        android:text="シ"
         app:layout_constraintStart_toEndOf="@+id/ra1"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -117,5 +109,55 @@
         android:text="再生"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline4" />
+
+    <Button
+        android:id="@+id/dore1"
+        android:layout_width="42dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/remi1"
+        android:layout_width="42dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/dore1"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/faso1"
+        android:layout_width="42dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/remi1"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/sora1"
+        android:layout_width="42dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/faso1"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/rasi1"
+        android:layout_width="42dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/sora1"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 </android.support.constraint.ConstraintLayout>
