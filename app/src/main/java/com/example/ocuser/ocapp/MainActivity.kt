@@ -33,14 +33,15 @@ class MainActivity : AppCompatActivity() {
     //再生ボタンをクリックした時の処理
     fun makeScore(){
         //oto=音階,delay=長さ
-        setScore( "do1" , 200 )
-        setScore( "re1" , 200 )
-        setScore( "mi1", 400)
-        setScore( "fa1" , 500)
-        setScore( "mi1",300)
-        setScore( "re1" , 500)
-        setScore( "do1" , 800 )
-        setScore( "-" , 500 )
+        scoreList.clear()
+        setScore( "ra1" , 200 )
+        setScore( "si1" , 400 )
+        setScore( "dore1", 500)
+        setScore( "si1" , 250)
+        setScore( "ra1",300)
+        setScore( "-" , 500)
+        //setScore( "do1" , 800 )
+        //setScore( "-" , 500 )
 
     }
 
@@ -66,20 +67,20 @@ class MainActivity : AppCompatActivity() {
         //音源の準備
         val audioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build()
         soundPool = SoundPool.Builder().setAudioAttributes(audioAttributes).setMaxStreams(2).build()
-        scaleMap.put("do1",  soundPool.load(this,R.raw.s_do,1))
-        scaleMap.put("dore1",  soundPool.load(this,R.raw.s_dore1,1))
-        scaleMap.put("re1",  soundPool.load(this,R.raw.s_re,1))
-        scaleMap.put("remi1",  soundPool.load(this,R.raw.s_remi1,1))
-        scaleMap.put("mi1",  soundPool.load(this,R.raw.s_mi,1))
-        scaleMap.put("fa1",soundPool.load(this,R.raw.s_fa,1))
-        scaleMap.put("faso1",  soundPool.load(this,R.raw.s_faso1,1))
-        scaleMap.put("so1",  soundPool.load(this,R.raw.s_so,1))
-        scaleMap.put("sora1",  soundPool.load(this,R.raw.s_sora1,1))
-        scaleMap.put("ra1",  soundPool.load(this,R.raw.s_ra,1))
-        scaleMap.put("rasi1",  soundPool.load(this,R.raw.s_rasi1,1))
-        scaleMap.put("si1",  soundPool.load(this,R.raw.s_si,1))
-        scaleMap.put("do2",  soundPool.load(this,R.raw.s_do2,1))
-        scaleMap.put("dore2",  soundPool.load(this,R.raw.s_dore2,1))
+        scaleMap.put("do1",  soundPool.load(this,R.raw.s_060,1))
+        scaleMap.put("dore1",  soundPool.load(this,R.raw.s_061,1))
+        scaleMap.put("re1",  soundPool.load(this,R.raw.s_062,1))
+        scaleMap.put("remi1",  soundPool.load(this,R.raw.s_063,1))
+        scaleMap.put("mi1",  soundPool.load(this,R.raw.s_064,1))
+        scaleMap.put("fa1",soundPool.load(this,R.raw.s_065,1))
+        scaleMap.put("faso1",  soundPool.load(this,R.raw.s_066,1))
+        scaleMap.put("so1",  soundPool.load(this,R.raw.s_067,1))
+        scaleMap.put("sora1",  soundPool.load(this,R.raw.s_068,1))
+        scaleMap.put("ra1",  soundPool.load(this,R.raw.s_069,1))
+        scaleMap.put("rasi1",  soundPool.load(this,R.raw.s_070,1))
+        scaleMap.put("si1",  soundPool.load(this,R.raw.s_071,1))
+        scaleMap.put("do2",  soundPool.load(this,R.raw.s_072,1))
+        scaleMap.put("dore2",  soundPool.load(this,R.raw.s_073,1))
 
         //楽譜を再生ボタン
         play.setOnClickListener{
