@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         //初期化
         init()
         //タイトルを表示する
-
+       
         //鍵盤にイベントを割り当てる
 
 
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     //再生ボタンをクリックした時の処理
     fun makeScore(){
         //oto=音階,delay=長さ
-        scoreList.clear()
+
         setScore( "ra1" , 200 )
         setScore( "si1" , 400 )
         setScore( "dore1", 500)
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
         //楽譜を再生ボタン
         play.setOnClickListener{
+            scoreList.clear()
             makeScore()
             scorePlay()
         }
